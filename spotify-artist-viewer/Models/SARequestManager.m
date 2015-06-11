@@ -67,6 +67,8 @@ static SARequestManager *rm = nil;
                
             }
             
+            success(artists);
+            
   
         }
         

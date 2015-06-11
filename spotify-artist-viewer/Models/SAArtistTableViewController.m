@@ -47,7 +47,7 @@
     
     [manager getArtistWithQuery:searchText success:^(NSArray *artists)  {
        self.artistArray = artists;
-
+        [self.tableView reloadData];
      } failure:^(NSError *error) {
          NSLog(@"block failure");
     }];
@@ -60,9 +60,9 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete method implementation.
+
     // Return the number of rows in the section.
-    return [self.searchResults count];
+    return [self.artistArray count];
 }
 
 
@@ -78,8 +78,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    SAArtist *newArtist = nil;
-    newArtist.artistName = [self.artistArray objectAtIndex:indexPath.row];
+    SAArtist *newArtist = [self.artistArray objectAtIndex:indexPath.row];
     cell.textLabel.text = newArtist.artistName;
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     return cell;
