@@ -12,7 +12,8 @@
 //artist name, photo, bio, spotify ID number
 
 @property (nonatomic)NSString *artistName;
-@property (nonatomic)NSString *artistID;
+@property (nonatomic)NSString *artistUri;
+@property(nonatomic)NSString *imgURL;
 
 
 

@@ -23,12 +23,13 @@
 //connecting this view controller with the Artist object (importing SAArtist, too)
 @synthesize artistArray;
 @synthesize searchResults;
+@synthesize rowNum;
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.searchBar setDelegate:self];
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
    
 
 }
@@ -64,9 +65,11 @@
 
 //-(IBAction)did
 
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = [indexPath row];
-   [self performSegueWithIdentifier:@"NextScreen" sender:nil];
+    rowNum = row;
+    NSLog(@"RowNum - %d", rowNum);
+    [self performSegueWithIdentifier:@"NextScreen" sender:nil];
  
     
 }
@@ -76,7 +79,12 @@
         UITableViewCell *selectedCell = (UITableViewCell *)sender;
         
         SAArtistViewController *svc = [segue destinationViewController];
-        [svc setArtistNameVC:@"test"];
+        SAArtist *artistToBePassed = [[SAArtist alloc]init];
+        
+        artistToBePassed = [self.artistArray objectAtIndex:rowNum];
+        NSLog(@"ArtistName - %@", artistToBePassed.artistName);
+
+        [svc setArtistNameVC:artistToBePassed.artistName];
         
         
     }

@@ -38,7 +38,7 @@ static SARequestManager *rm = nil;
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-    NSLog(@"URL - %@", urlWithType);
+   
    
     NSMutableArray *artists = [[NSMutableArray alloc] init];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -46,25 +46,48 @@ static SARequestManager *rm = nil;
                                                   options:0
                                                     error:NULL];
  
-        
+        NSLog(@"JSON - %@", result);
         if([result isKindOfClass:[NSDictionary class]]){
            NSDictionary *itemArray = [[NSDictionary alloc] init];
             itemArray = [result objectForKey:@"artists"];
     
-            
-            
+         
+           
             NSDictionary *artistArray = [[NSDictionary alloc] init];
             artistArray = [itemArray objectForKey:@"items"];
-        
+//        
+//            
+//            for( artistArray in [artistArray valueForKey:@"name"]){
+//             
+//                SAArtist *a = [[SAArtist alloc]init];
+//                NSString *name = artistArray;
+//                a.artistName = name;
+//                NSLog(@"uri - %@", a.artistName);
+//                [artists addObject:a];
+//               
+//            }
             
-            for( artistArray in [artistArray valueForKey:@"name"]){
-             
+            
+            for(itemArray in [itemArray valueForKey:@"items"]){
                 SAArtist *a = [[SAArtist alloc]init];
-                NSString *name = artistArray;
-                a.artistName = name;
-                NSLog(@"uri - %@", a.artistName);
+                
+                NSDictionary *imgArray = [[NSDictionary alloc] init];
+                imgArray = [itemArray objectForKey:@"images"];
+                
+                
+                NSArray *tempimgUrl = [imgArray valueForKey:@"url"];
+                a.imgURL = [tempimgUrl objectAtIndex:0];
+                NSLog(@"url - %@", tempimgUrl);
+                NSString *name = [itemArray valueForKey:@"name"];
+                                a.artistName = name;
+                
+                NSString *uri = [itemArray valueForKey:@"uri"];
+                a.artistUri = uri;
+                
+                
                 [artists addObject:a];
-               
+                               
+
             }
             
             success(artists);

@@ -9,14 +9,16 @@
 
 @implementation SAArtist
 
-@synthesize artistID;
+@synthesize artistUri;
 @synthesize artistName;
+@synthesize imgURL;
 
 
 + (id)artistInformation:(NSString*)artistName artistID:(NSString*)ID {
     SAArtist *artistInput  = [[self alloc]init];
-    artistInput.artistID = ID;
+    artistInput.artistUri = ID;
     artistInput.artistName = artistName;
+    
 
     return artistInput;
 }
