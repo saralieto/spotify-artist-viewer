@@ -10,6 +10,10 @@
 @class SAArtist;
 
 @interface SAArtistViewController : UIViewController
+@property (nonatomic)NSString *artistNameVC;
+@property (weak, nonatomic) IBOutlet UIImageView *img;
+@property (weak, nonatomic) IBOutlet UILabel *header;
+@property (weak, nonatomic) IBOutlet UILabel *bio;
 
 //- (instancetype)initWithArtist:(SAArtist *)artist;
 

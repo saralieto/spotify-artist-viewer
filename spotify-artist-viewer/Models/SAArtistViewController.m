@@ -10,12 +10,18 @@
 
 @interface SAArtistViewController ()
 
+
 @end
 
 @implementation SAArtistViewController
+@synthesize artistNameVC;
+@synthesize header;
+@synthesize bio;
+@synthesize img;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    header.text = artistNameVC;
     // Do any additional setup after loading the view.
 }
 

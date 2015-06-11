@@ -9,6 +9,7 @@
 #import "SAArtistTableViewController.h"
 #import "SAArtist.h"
 #import "SARequestManager.h"
+#import "SAArtistViewController.h"
 
 
 
@@ -29,11 +30,6 @@
     [self.searchBar setDelegate:self];
     [self.tableView reloadData];
    
-    
-
-
-   
-    
 
 }
 
@@ -41,6 +37,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - Text Change
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     SARequestManager *manager = [SARequestManager sharedManager];
@@ -55,6 +53,39 @@
     
     
 }
+
+#pragma mark - Button cell pressing
+
+//- (IBAction)buttonPressed:(id)sender
+//{
+//
+//    [self performSegueWithIdentifier:@"NextScreen" sender:sender];
+//}
+
+//-(IBAction)did
+
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSInteger row = [indexPath row];
+   [self performSegueWithIdentifier:@"NextScreen" sender:nil];
+ 
+    
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([[segue identifier ] isEqualToString:@"NextScreen"]){
+        UITableViewCell *selectedCell = (UITableViewCell *)sender;
+        
+        SAArtistViewController *svc = [segue destinationViewController];
+        [svc setArtistNameVC:@"test"];
+        
+        
+    }
+        //get SAArtist
+        // SAArtist *artistToPass;
+        // [stvc
+    
+}
+
 #pragma mark - Table view data source
 
 
