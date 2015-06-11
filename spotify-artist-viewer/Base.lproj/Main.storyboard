@@ -12,12 +12,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="snm-Wt-MFI">
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="xaM-4Y-bMM">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                             <connections>
-                                <outlet property="delegate" destination="XkH-9N-bdg" id="uO9-Am-NMe"/>
+                                <outlet property="delegate" destination="6lC-J0-qUf" id="mj2-v2-LRc"/>
                             </connections>
                         </searchBar>
                         <prototypes>
@@ -29,11 +29,28 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="BYZ-38-t0r" id="gMf-dI-STj"/>
+                            <outlet property="delegate" destination="BYZ-38-t0r" id="3u8-02-2nA"/>
+                        </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="searchBar" destination="xaM-4Y-bMM" id="ULc-4J-JFa"/>
+                        <outlet property="searchDisplayController" destination="6lC-J0-qUf" id="Q8d-dp-fCo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="6lC-J0-qUf">
+                    <connections>
+                        <outlet property="delegate" destination="BYZ-38-t0r" id="WJL-kt-LEP"/>
+                        <outlet property="searchBar" destination="xaM-4Y-bMM" id="xmy-Zb-uhU"/>
+                        <outlet property="searchContentsController" destination="BYZ-38-t0r" id="vmw-x9-cYJ"/>
+                        <outlet property="searchResultsDataSource" destination="BYZ-38-t0r" id="JUw-we-7SD"/>
+                        <outlet property="searchResultsDelegate" destination="BYZ-38-t0r" id="JnK-9U-NtC"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="285" y="411"/>
+            <point key="canvasLocation" x="311" y="412"/>
         </scene>
     </scenes>
 </document>

@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface SAArtistTableViewController : UITableViewController
-@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 //<UISearchBarDelegate, UISearchDisplayDelegate>
-@property (strong, nonatomic) NSArray *artistArray;
+@property (strong, nonatomic) NSMutableArray *artistArray;
 @property (strong,nonatomic) NSMutableArray *searchResults;
 
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 
 @end

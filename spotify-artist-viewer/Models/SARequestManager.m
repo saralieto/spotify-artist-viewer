@@ -40,7 +40,7 @@ static SARequestManager *rm = nil;
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
     NSLog(@"URL - %@", urlWithType);
    
-   
+    NSMutableArray *artists = [[NSMutableArray alloc] init];
     NSURLSessionDataTask *task = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
       NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data
                                                   options:0
@@ -50,15 +50,12 @@ static SARequestManager *rm = nil;
         if([result isKindOfClass:[NSDictionary class]]){
            NSDictionary *itemArray = [[NSDictionary alloc] init];
             itemArray = [result objectForKey:@"artists"];
-            NSMutableArray *artists = [[NSMutableArray alloc] init];
+    
             
             
             NSDictionary *artistArray = [[NSDictionary alloc] init];
             artistArray = [itemArray objectForKey:@"items"];
-            //FOR  ITEMS in ARTISTARRAY
-            //CREATE ARTIST OBJECTS
-            
-            
+        
             
             for( artistArray in [artistArray valueForKey:@"name"]){
              
@@ -67,9 +64,10 @@ static SARequestManager *rm = nil;
                 a.artistName = name;
                 NSLog(@"uri - %@", a.artistName);
                 [artists addObject:a];
+               
             }
             
-            
+  
         }
         
                                      
