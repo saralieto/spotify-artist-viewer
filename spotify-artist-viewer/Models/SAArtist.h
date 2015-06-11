@@ -9,4 +9,15 @@
 
 @interface SAArtist : NSObject
 
+//artist name, photo, bio, spotify ID number
+
+@property (nonatomic)NSString *artistName;
+@property (nonatomic)NSString *artistID;
+
+
+
++ (id)artistInformation:(NSString*)artistName artistID:(NSString*)ID;
+
+
+
 @end
