@@ -84,7 +84,7 @@
         artistToBePassed = [self.artistArray objectAtIndex:rowNum];
         NSLog(@"ArtistName - %@", artistToBePassed.artistName);
 
-        [svc setArtistNameVC:artistToBePassed.artistName];
+        [svc setVcArtist:artistToBePassed];
         
         
     }

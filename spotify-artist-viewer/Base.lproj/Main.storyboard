@@ -97,6 +97,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="artistImg" destination="l7R-aJ-ufX" id="HXO-Nr-gc0"/>
                         <outlet property="bio" destination="p0l-Dm-YKy" id="yFZ-iV-vIi"/>
                         <outlet property="header" destination="BY1-uP-vtB" id="YeB-nS-g7h"/>
                         <outlet property="img" destination="l7R-aJ-ufX" id="GeV-r0-sjX"/>

@@ -55,28 +55,22 @@ static SARequestManager *rm = nil;
            
             NSDictionary *artistArray = [[NSDictionary alloc] init];
             artistArray = [itemArray objectForKey:@"items"];
-//        
-//            
-//            for( artistArray in [artistArray valueForKey:@"name"]){
-//             
-//                SAArtist *a = [[SAArtist alloc]init];
-//                NSString *name = artistArray;
-//                a.artistName = name;
-//                NSLog(@"uri - %@", a.artistName);
-//                [artists addObject:a];
-//               
-//            }
-            
+
             
             for(itemArray in [itemArray valueForKey:@"items"]){
                 SAArtist *a = [[SAArtist alloc]init];
                 
                 NSDictionary *imgArray = [[NSDictionary alloc] init];
                 imgArray = [itemArray objectForKey:@"images"];
-                
-                
                 NSArray *tempimgUrl = [imgArray valueForKey:@"url"];
+                
+                //making sure artist has images
+                
+                if(tempimgUrl.count != NULL){
+                
                 a.imgURL = [tempimgUrl objectAtIndex:0];
+                }
+                
                 NSLog(@"url - %@", tempimgUrl);
                 NSString *name = [itemArray valueForKey:@"name"];
                                 a.artistName = name;

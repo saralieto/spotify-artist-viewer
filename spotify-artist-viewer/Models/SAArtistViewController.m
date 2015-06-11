@@ -7,9 +7,12 @@
 //
 
 #import "SAArtistViewController.h"
+#import "SAArtist.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface SAArtistViewController ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *artistImg;
 
 @end
 
@@ -18,10 +21,15 @@
 @synthesize header;
 @synthesize bio;
 @synthesize img;
+@synthesize vcArtist;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    header.text = artistNameVC;
+    header.text = vcArtist.artistName;
+    
+    NSURL *imageURL = [NSURL URLWithString:vcArtist.imgURL];
+    [self.artistImg sd_setImageWithURL:imageURL];
+    
     // Do any additional setup after loading the view.
 }
 
