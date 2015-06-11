@@ -78,11 +78,18 @@ static SARequestManager *rm = nil;
                 NSString *uri = [itemArray valueForKey:@"uri"];
                 a.artistUri = uri;
                 
+                NSString *regQuery = @"http://developer.echonest.com/api/v4/artist/biographies?api_key=FILDTEOIK2HBORODV&id=";
+            
                 
+                                              
                 [artists addObject:a];
                                
 
             }
+            
+            
+            //econest query http://developer.echonest.com/api/v4/artist/biographies?api_key=FILDTEOIK2HBORODV&id=spotify:artist:4Z8W4fKeB5YxbusRsdQVPb
+            
             
             success(artists);
             

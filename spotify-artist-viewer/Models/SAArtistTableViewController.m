@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.searchBar setDelegate:self];
-    //[self.tableView reloadData];
+    [self.tableView reloadData];
    
 
 }
@@ -44,9 +44,11 @@
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     SARequestManager *manager = [SARequestManager sharedManager];
     
+
     [manager getArtistWithQuery:searchText success:^(NSArray *artists)  {
-       self.artistArray = artists;
-        [self.tableView reloadData];
+       [self.tableView reloadData];
+        self.artistArray = artists;
+        
      } failure:^(NSError *error) {
          NSLog(@"block failure");
     }];
@@ -81,6 +83,7 @@
         SAArtistViewController *svc = [segue destinationViewController];
         SAArtist *artistToBePassed = [[SAArtist alloc]init];
         
+        
         artistToBePassed = [self.artistArray objectAtIndex:rowNum];
         NSLog(@"ArtistName - %@", artistToBePassed.artistName);
 
@@ -110,6 +113,7 @@
 }
 
 
+                                  
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
    static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
