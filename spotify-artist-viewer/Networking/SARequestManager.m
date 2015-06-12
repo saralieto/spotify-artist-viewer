@@ -43,7 +43,7 @@ static SARequestManager *rm = nil;
                                                                options:0
                                                                  error:NULL];
         
-        NSLog(@"JSON - %@", result);
+  
         if([result isKindOfClass:[NSDictionary class]]){
             NSDictionary *itemArray = [[NSDictionary alloc] init];
             itemArray = [result objectForKey:@"artists"];
@@ -67,8 +67,7 @@ static SARequestManager *rm = nil;
                     
                     a.imgURL = [tempimgUrl objectAtIndex:0];
                 }
-                
-                NSLog(@"url - %@", tempimgUrl);
+            
                 NSString *name = [itemArray valueForKey:@"name"];
                 a.artistName = name;
                 
@@ -104,19 +103,23 @@ static SARequestManager *rm = nil;
     
 }
 
--(void)getBio:(NSString *) uri success:(void (^)(NSString *bio))success failure:(void(^)(NSError *error))failure{
-    // NSString *urlPrefix = @"http://developer.echonest.com/api/v4/artist/biographies?api_key=";
-    NSString *url =@"http://developer.echonest.com/api/v4/artist/biographies?api_key=D4YA0K8VK2VQIUVGC&id=ARH6W4X1187B99274F&format=json&results=1&start=0&license=cc-by-sa";
+-(void)getBio:(NSString *) uri success:(void (^)(NSArray *bios))success failure:(void(^)(NSError *error))failure{
+     NSString *urlPrefix = @"http://developer.echonest.com/api/v4/artist/biographies?api_key=";
+    //NSString *url =@"http://developer.echonest.com/api/v4/artist/biographies?api_key=D4YA0K8VK2VQIUVGC&id=ARH6W4X1187B99274F&format=json&results=1&start=0&license=cc-by-sa";
+    
+    //"string with format", %@
+    
+    NSString *myapikey =@"D4YA0K8VK2VQIUVGC&id=";
+    NSString *jsonFormat = @"&format=json";
+    
+    NSString *urlwithapi = [urlPrefix stringByAppendingString:myapikey];
+    NSString *urlwithuri = [urlwithapi stringByAppendingString:uri];
     
     
-    NSString *myapikey =@"D4YA0K8VK2VQIUVGC=";
-    // NSString *urlwithapi = [urlPrefix stringByAppendingString:myapikey];
-    //NSString *urlwithuri = [urlwithapi stringByAppendingString:uri];
-    // NSString *urltest = [urltest stringByAppendingString:url];
-    
-    NSURL *requestURL = [NSURL URLWithString:url];
-    NSString *bio;
-    // NSLog(@"echonesturl - %@", urlwithuri);
+    NSURL *requestURL = [NSURL URLWithString:urlwithuri];
+    //NSString *bio;
+    NSMutableArray *bios = [NSArray new];
+    NSLog(@"echonesturl - %@", urlwithuri);
     
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:requestURL];
     //[urlRequest setHTTPMethod:@"GET"];
@@ -130,16 +133,27 @@ static SARequestManager *rm = nil;
         
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                              options:0 error:NULL];
-        
+        NSLog(@"JSON - %@", json);
         // NSString *incBio = data;
         //[bio isEqualToString:json];
-        NSLog(@"JSON - %@", json);
+        if([json isKindOfClass:[NSDictionary class]]){
         
+            NSArray *bioArray = [[NSArray alloc] init];
+            bioArray = [json objectForKey:@"biographies"];
+            if(bioArray != NULL){
+            
+                NSString *bio = [bioArray objectAtIndex:0];
+                [bios addObject:bio];
+                
+            }
+      
+            
+        }
         
         
     }];
     
-    success(bio);
+    success(bios);
     
     
     [task resume];

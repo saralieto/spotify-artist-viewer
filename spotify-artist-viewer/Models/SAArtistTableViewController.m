@@ -32,7 +32,6 @@
     [self.searchBar setDelegate:self];
     //self.tableView.delegate = self;
     [self.tableView reloadData];
-   
 
 }
 
@@ -44,9 +43,9 @@
 #pragma mark - Text Change
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+  
     SARequestManager *manager = [SARequestManager sharedManager];
     
-
     [manager getArtistWithQuery:searchText success:^(NSArray *artists)  {
         self.artistArray = [artists mutableCopy];
         [self.tableView reloadData];
@@ -85,21 +84,9 @@
         SAArtistViewController *svc = [segue destinationViewController];
         SAArtist *artistToBePassed = [[SAArtist alloc]init];
         artistToBePassed = [self.artistArray objectAtIndex:rowNum];
-        
-        
-        SARequestManager *manager = [SARequestManager sharedManager];
         NSString *aUri =[artistToBePassed artistUri];
         
-        [manager getBio:aUri success:^(NSString *bio){
-            
-            artistToBePassed.bio = bio;
-            
-        } failure:^(NSError *error) {
-            NSLog(@"block failure");
-        }];
         
-        
-        NSLog(@"ArtistBio - %@", artistToBePassed.bio);
 
         [svc setVcArtist:artistToBePassed];
         

@@ -8,11 +8,15 @@
 
 #import "SAArtistViewController.h"
 #import "SAArtist.h"
+#import "SARequestManager.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface SAArtistViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *artistImg;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+
+
 
 @end
 
@@ -22,7 +26,6 @@
 @synthesize bio;
 @synthesize img;
 @synthesize vcArtist;
-@synthesize backButton;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,12 +37,20 @@
     self.artistImg.layer.cornerRadius = self.artistImg.frame.size.height/2;
     [self.artistImg.layer setMasksToBounds:YES];
     
-    bio.text = vcArtist.bio;
+   
     
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(Back)];
+    UIButton *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButtonPressed:)];
+    
     self.navigationItem.backBarButtonItem = backButton;
-
+    
+   
+    
+    
+    
+   //[self setBio];
+   //bio.text = vcArtist.bio;
+  //  NSLog(@"ArtistBio - %@", self.vcArtist.bio);
     
 
     
@@ -47,18 +58,33 @@
 
     
     
-    // Do any additional setup after loading the view.
 }
+
+-(void)setBio{
+   SARequestManager *manager = [SARequestManager sharedManager];
+    [manager getBio:self.vcArtist.artistUri success:^(NSArray *bios){
+        if(bios != NULL){
+        
+        self.vcArtist.bio = [bios objectAtIndex:0];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"block failure");
+    }];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-//- (IBAction)doneButtonPressed:(id)sender
-//{
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
+- (IBAction)doneButtonPressed:(id)sender
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 /*
 #pragma mark - Navigation
