@@ -22,13 +22,30 @@
 @synthesize bio;
 @synthesize img;
 @synthesize vcArtist;
+@synthesize backButton;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     header.text = vcArtist.artistName;
+
     
     NSURL *imageURL = [NSURL URLWithString:vcArtist.imgURL];
     [self.artistImg sd_setImageWithURL:imageURL];
+    self.artistImg.layer.cornerRadius = self.artistImg.frame.size.height/2;
+    [self.artistImg.layer setMasksToBounds:YES];
+    
+    bio.text = vcArtist.bio;
+    
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(Back)];
+    self.navigationItem.backBarButtonItem = backButton;
+
+    
+
+    
+    
+
+    
     
     // Do any additional setup after loading the view.
 }
@@ -38,7 +55,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+//- (IBAction)doneButtonPressed:(id)sender
+//{
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 
 /*
 #pragma mark - Navigation

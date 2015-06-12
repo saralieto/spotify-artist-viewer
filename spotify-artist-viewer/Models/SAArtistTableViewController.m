@@ -28,7 +28,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.artistArray = [NSMutableArray new];
     [self.searchBar setDelegate:self];
+    //self.tableView.delegate = self;
     [self.tableView reloadData];
    
 
@@ -46,8 +48,8 @@
     
 
     [manager getArtistWithQuery:searchText success:^(NSArray *artists)  {
-       [self.tableView reloadData];
-        self.artistArray = artists;
+        self.artistArray = [artists mutableCopy];
+        [self.tableView reloadData];
         
      } failure:^(NSError *error) {
          NSLog(@"block failure");
@@ -71,7 +73,7 @@
     NSInteger row = [indexPath row];
     rowNum = row;
     NSLog(@"RowNum - %d", rowNum);
-    [self performSegueWithIdentifier:@"NextScreen" sender:nil];
+    [self performSegueWithIdentifier:@"NextScreen" sender:indexPath];
  
     
 }
@@ -82,10 +84,22 @@
         
         SAArtistViewController *svc = [segue destinationViewController];
         SAArtist *artistToBePassed = [[SAArtist alloc]init];
-        
-        
         artistToBePassed = [self.artistArray objectAtIndex:rowNum];
-        NSLog(@"ArtistName - %@", artistToBePassed.artistName);
+        
+        
+        SARequestManager *manager = [SARequestManager sharedManager];
+        NSString *aUri =[artistToBePassed artistUri];
+        
+        [manager getBio:aUri success:^(NSString *bio){
+            
+            artistToBePassed.bio = bio;
+            
+        } failure:^(NSError *error) {
+            NSLog(@"block failure");
+        }];
+        
+        
+        NSLog(@"ArtistBio - %@", artistToBePassed.bio);
 
         [svc setVcArtist:artistToBePassed];
         
@@ -115,7 +129,7 @@
 
                                   
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-   static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if ( cell == nil ) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];

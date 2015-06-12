@@ -15,6 +15,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *header;
 @property (weak, nonatomic) IBOutlet UILabel *bio;
 @property (nonatomic) SAArtist *vcArtist;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+
+
 
 //- (instancetype)initWithArtist:(SAArtist *)artist;
 

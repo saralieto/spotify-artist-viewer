@@ -16,7 +16,7 @@
 		2E7674471B26766200336867 /* spotify_artist_viewerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7674461B26766200336867 /* spotify_artist_viewerTests.m */; };
 		2E7674541B2676F400336867 /* SAArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7674531B2676F400336867 /* SAArtist.m */; };
 		6156D8751B28E1E00012A22C /* SAArtistTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6156D8741B28E1E00012A22C /* SAArtistTableViewController.m */; };
-		61ECE3A11B275C70000501B7 /* SARequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 61ECE3A01B275C70000501B7 /* SARequestManager.m */; };
+		616D895E1B2B5B54008E192F /* SARequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E7674561B26772600336867 /* SARequestManager.m */; };
 		61ECE3A61B275E4B000501B7 /* SAArtistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 61ECE3A51B275E4B000501B7 /* SAArtistViewController.m */; };
 		F1B32E2C9AF1845A479087CC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0E7430A3A8E0D532510B962 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -51,8 +51,6 @@
 		2E7674551B26772600336867 /* SARequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SARequestManager.h; path = Networking/SARequestManager.h; sourceTree = "<group>"; };
 		2E7674561B26772600336867 /* SARequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SARequestManager.m; path = Networking/SARequestManager.m; sourceTree = "<group>"; };
 		6156D8741B28E1E00012A22C /* SAArtistTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAArtistTableViewController.m; path = Models/SAArtistTableViewController.m; sourceTree = "<group>"; };
-		61ECE39F1B275C70000501B7 /* SARequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SARequestManager.h; path = Models/SARequestManager.h; sourceTree = "<group>"; };
-		61ECE3A01B275C70000501B7 /* SARequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SARequestManager.m; path = Models/SARequestManager.m; sourceTree = "<group>"; };
 		61ECE3A41B275E4B000501B7 /* SAArtistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAArtistViewController.h; path = Models/SAArtistViewController.h; sourceTree = "<group>"; };
 		61ECE3A51B275E4B000501B7 /* SAArtistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAArtistViewController.m; path = Models/SAArtistViewController.m; sourceTree = "<group>"; };
 		61ECE3B11B277D5D000501B7 /* SAArtistTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAArtistTableViewController.h; path = Models/SAArtistTableViewController.h; sourceTree = "<group>"; };
@@ -147,8 +145,6 @@
 			children = (
 				61ECE3A41B275E4B000501B7 /* SAArtistViewController.h */,
 				61ECE3A51B275E4B000501B7 /* SAArtistViewController.m */,
-				61ECE39F1B275C70000501B7 /* SARequestManager.h */,
-				61ECE3A01B275C70000501B7 /* SARequestManager.m */,
 				61ECE3B11B277D5D000501B7 /* SAArtistTableViewController.h */,
 				6156D8741B28E1E00012A22C /* SAArtistTableViewController.m */,
 				2E7674521B2676F400336867 /* SAArtist.h */,
@@ -318,9 +314,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				616D895E1B2B5B54008E192F /* SARequestManager.m in Sources */,
 				2E7674541B2676F400336867 /* SAArtist.m in Sources */,
 				6156D8751B28E1E00012A22C /* SAArtistTableViewController.m in Sources */,
-				61ECE3A11B275C70000501B7 /* SARequestManager.m in Sources */,
 				2E7674331B26766200336867 /* ViewController.m in Sources */,
 				61ECE3A61B275E4B000501B7 /* SAArtistViewController.m in Sources */,
 				2E7674301B26766200336867 /* AppDelegate.m in Sources */,

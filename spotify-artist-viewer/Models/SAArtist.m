@@ -12,6 +12,7 @@
 @synthesize artistUri;
 @synthesize artistName;
 @synthesize imgURL;
+@synthesize bio;
 
 
 + (id)artistInformation:(NSString*)artistName artistID:(NSString*)ID {

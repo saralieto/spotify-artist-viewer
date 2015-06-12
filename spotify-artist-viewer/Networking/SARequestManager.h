@@ -2,17 +2,15 @@
 //  SARequestManager.h
 //  spotify-artist-viewer
 //
+//  Created by Sara Lieto on 6/9/15.
 //  Copyright (c) 2015 Intrepid. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
 @interface SARequestManager : NSObject
++ (instancetype) sharedManager;
 
-+ (instancetype)sharedManager;
-
-- (void)getArtistsWithQuery:(NSString *)query
-                    success:(void (^)(NSArray *artists))success
-                    failure:(void (^)(NSError *error))failure;
-
+- (void) getArtistWithQuery:(NSString *) query success:(void (^)(NSArray *artists))success failure:(void(^)(NSError *error))failure;
+-(void)getBio:(NSString *) uri success:(void (^)(NSString *bio))success failure:(void(^)(NSError *error))failure;
 @end

@@ -14,6 +14,8 @@
 @property (nonatomic)NSString *artistName;
 @property (nonatomic)NSString *artistUri;
 @property(nonatomic)NSString *imgURL;
+@property(nonatomic)NSString *bio;
+
 
 
 
