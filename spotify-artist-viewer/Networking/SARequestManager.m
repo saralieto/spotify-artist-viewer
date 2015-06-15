@@ -135,13 +135,15 @@ static SARequestManager *rm = nil;
             
             NSDictionary *biosArray = [[NSDictionary alloc] init];
             biosArray = [[bioArray objectForKey:@"biographies"] objectAtIndex:0];
-            
+            if(biosArray.count != NULL){
             NSMutableString *bioTextArray;
             bioTextArray = [biosArray objectForKey:@"text"];
             
             
             NSLog(@"bioArray- %@", bioTextArray);
+            
             [bios addObject:bioTextArray];
+        }
       
          
         }

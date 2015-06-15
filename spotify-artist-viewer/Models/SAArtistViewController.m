@@ -42,8 +42,10 @@
  
     
  
-    self.setBio;
-    self.bio.text = self.vcArtist.bio;
+    while(self.vcArtist.bio == nil){
+        self.setBio;
+        self.bio.text = self.vcArtist.bio;
+    }
   // self.bio.text = @"test";
     NSLog(@"ArtistBio - %@", self.vcArtist.bio);
     
@@ -58,12 +60,12 @@
 -(void)setBio{
 SARequestManager *manager = [SARequestManager sharedManager];
     [manager getBio:self.vcArtist.artistUri success:^(NSArray *bios){
-        //if(bios.count != NULL){
+        if(bios.count != NULL){
         
         self.vcArtist.bio = [bios objectAtIndex:0];
         
-     //self.bio.text = self.vcArtist.bio;
-       // }
+           
+        }
         
     } failure:^(NSError *error) {
         NSLog(@"block failure");
