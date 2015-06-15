@@ -36,21 +36,16 @@
     [self.artistImg sd_setImageWithURL:imageURL];
     self.artistImg.layer.cornerRadius = self.artistImg.frame.size.height/2;
     [self.artistImg.layer setMasksToBounds:YES];
-    
-   
-    
-    
+
     UIButton *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButtonPressed:)];
-    
     self.navigationItem.backBarButtonItem = backButton;
+ 
     
-   
-    
-    
-    
-   //[self setBio];
-   //bio.text = vcArtist.bio;
-  //  NSLog(@"ArtistBio - %@", self.vcArtist.bio);
+ 
+    self.setBio;
+    self.bio.text = self.vcArtist.bio;
+  // self.bio.text = @"test";
+    NSLog(@"ArtistBio - %@", self.vcArtist.bio);
     
 
     
@@ -61,17 +56,19 @@
 }
 
 -(void)setBio{
-   SARequestManager *manager = [SARequestManager sharedManager];
+SARequestManager *manager = [SARequestManager sharedManager];
     [manager getBio:self.vcArtist.artistUri success:^(NSArray *bios){
-        if(bios != NULL){
+        //if(bios.count != NULL){
         
         self.vcArtist.bio = [bios objectAtIndex:0];
-        }
+        
+     //self.bio.text = self.vcArtist.bio;
+       // }
         
     } failure:^(NSError *error) {
         NSLog(@"block failure");
     }];
-    
+   // self.vcArtist.bio = [manager getBio:self.vcArtist.artistUri];
 }
 
 
@@ -86,14 +83,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

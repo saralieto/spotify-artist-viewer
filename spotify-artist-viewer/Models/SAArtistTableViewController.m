@@ -14,13 +14,12 @@
 
 
 @interface SAArtistTableViewController ()
-//@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
 
 
 @end
 
 @implementation SAArtistTableViewController
-//connecting this view controller with the Artist object (importing SAArtist, too)
 @synthesize artistArray;
 @synthesize searchResults;
 @synthesize rowNum;
@@ -30,8 +29,8 @@
     [super viewDidLoad];
     self.artistArray = [NSMutableArray new];
     [self.searchBar setDelegate:self];
-    //self.tableView.delegate = self;
     [self.tableView reloadData];
+   // SARequestManager *manager = [SARequestManager sharedManager];
 
 }
 
@@ -60,13 +59,7 @@
 
 #pragma mark - Button cell pressing
 
-//- (IBAction)buttonPressed:(id)sender
-//{
-//
-//    [self performSegueWithIdentifier:@"NextScreen" sender:sender];
-//}
 
-//-(IBAction)did
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = [indexPath row];
@@ -80,21 +73,18 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([[segue identifier ] isEqualToString:@"NextScreen"]){
         UITableViewCell *selectedCell = (UITableViewCell *)sender;
-        
+     
         SAArtistViewController *svc = [segue destinationViewController];
         SAArtist *artistToBePassed = [[SAArtist alloc]init];
+        
         artistToBePassed = [self.artistArray objectAtIndex:rowNum];
         NSString *aUri =[artistToBePassed artistUri];
-        
-        
-
+      
         [svc setVcArtist:artistToBePassed];
         
         
     }
-        //get SAArtist
-        // SAArtist *artistToPass;
-        // [stvc
+     
     
 }
 

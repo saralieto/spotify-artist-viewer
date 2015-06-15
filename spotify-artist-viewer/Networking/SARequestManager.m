@@ -74,9 +74,6 @@ static SARequestManager *rm = nil;
                 NSString *uri = [itemArray valueForKey:@"uri"];
                 a.artistUri = uri;
                 
-                NSString *regQuery = @"http://developer.echonest.com/api/v4/artist/biographies?api_key=FILDTEOIK2HBORODV&id=";
-                
-                
                 
                 [artists addObject:a];
                 
@@ -105,10 +102,7 @@ static SARequestManager *rm = nil;
 
 -(void)getBio:(NSString *) uri success:(void (^)(NSArray *bios))success failure:(void(^)(NSError *error))failure{
      NSString *urlPrefix = @"http://developer.echonest.com/api/v4/artist/biographies?api_key=";
-    //NSString *url =@"http://developer.echonest.com/api/v4/artist/biographies?api_key=D4YA0K8VK2VQIUVGC&id=ARH6W4X1187B99274F&format=json&results=1&start=0&license=cc-by-sa";
-    
-    //"string with format", %@
-    
+
     NSString *myapikey =@"D4YA0K8VK2VQIUVGC&id=";
     NSString *jsonFormat = @"&format=json";
     
@@ -117,49 +111,49 @@ static SARequestManager *rm = nil;
     
     
     NSURL *requestURL = [NSURL URLWithString:urlwithuri];
-    //NSString *bio;
-    NSMutableArray *bios = [NSArray new];
+    NSMutableArray *bios = [NSMutableArray new];
     NSLog(@"echonesturl - %@", urlwithuri);
     
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:requestURL];
-    //[urlRequest setHTTPMethod:@"GET"];
+   
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-    
+    NSMutableString *bioTextArray;
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        
-        
+    
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
-                                                             options:0 error:NULL];
+                                                             options:0
+                                                               error:NULL];
         NSLog(@"JSON - %@", json);
-        // NSString *incBio = data;
-        //[bio isEqualToString:json];
+        
         if([json isKindOfClass:[NSDictionary class]]){
         
-            NSArray *bioArray = [[NSArray alloc] init];
-            bioArray = [json objectForKey:@"biographies"];
-            if(bioArray != NULL){
+            NSDictionary *bioArray = [[NSDictionary alloc] init];
+            bioArray = [json objectForKey:@"response"];
             
-                NSString *bio = [bioArray objectAtIndex:0];
-                [bios addObject:bio];
-                
-            }
+            NSDictionary *biosArray = [[NSDictionary alloc] init];
+            biosArray = [[bioArray objectForKey:@"biographies"] objectAtIndex:0];
+            
+            NSMutableString *bioTextArray;
+            bioTextArray = [biosArray objectForKey:@"text"];
+            
+            
+            NSLog(@"bioArray- %@", bioTextArray);
+            [bios addObject:bioTextArray];
       
-            
+         
         }
+        success(bios);
         
         
     }];
-    
-    success(bios);
-    
-    
+  
     [task resume];
     
-    
-}
+   }
+
 
 
 
