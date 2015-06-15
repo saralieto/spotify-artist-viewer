@@ -45,8 +45,12 @@
     SARequestManager *manager = [SARequestManager sharedManager];
     
     [manager getArtistWithQuery:searchText success:^(NSArray *artists)  {
+        NSLog(@"success");
         self.artistArray = [artists mutableCopy];
-        [self.tableView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
         
      } failure:^(NSError *error) {
          NSLog(@"block failure");
@@ -76,7 +80,7 @@
         SAArtistViewController *svc = [segue destinationViewController];
         SAArtist *artistToBePassed = [[SAArtist alloc]init];
         
-        artistToBePassed = [self.artistArray objectAtIndex:rowNum];
+        artistToBePassed = [self.artistArray objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         NSString *aUri =[artistToBePassed artistUri];
       
         [svc setVcArtist:artistToBePassed];
@@ -106,6 +110,7 @@
                                   
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if ( cell == nil ) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];

@@ -73,7 +73,7 @@ static SARequestManager *rm = nil;
                 
                 NSString *uri = [itemArray valueForKey:@"uri"];
                 a.artistUri = uri;
-                
+          
                 
                 [artists addObject:a];
                 
@@ -143,11 +143,13 @@ static SARequestManager *rm = nil;
             NSLog(@"bioArray- %@", bioTextArray);
             
             [bios addObject:bioTextArray];
-        }
+            }
       
          
         }
+        if(bios.count !=0){
         success(bios);
+        }
         
         
     }];

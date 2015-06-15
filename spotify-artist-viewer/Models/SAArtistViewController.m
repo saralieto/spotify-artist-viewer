@@ -41,30 +41,38 @@
     self.navigationItem.backBarButtonItem = backButton;
  
     
- 
-    while(self.vcArtist.bio == nil){
-        self.setBio;
-        self.bio.text = self.vcArtist.bio;
-    }
-  // self.bio.text = @"test";
+    
+   // while(self.vcArtist.bio == nil){
+       // self.setBio;
+        //self.bio.text = self.vcArtist.bio;
+    //}
+    
+    SARequestManager *manager = [SARequestManager sharedManager];
+    [manager getBio:self.vcArtist.artistUri success:^(NSArray *bios){
+        if(bios.count != NULL){
+            self.vcArtist.bio = [bios objectAtIndex:0];
+            dispatch_async(dispatch_get_main_queue(), ^{
+               self.bio.text = self.vcArtist.bio;
+            });
+            
+        
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"block failure");
+    }];
+    self.bio.text = self.vcArtist.bio;
+  
     NSLog(@"ArtistBio - %@", self.vcArtist.bio);
     
-
-    
-    
-
-    
-    
+ 
 }
 
 -(void)setBio{
 SARequestManager *manager = [SARequestManager sharedManager];
     [manager getBio:self.vcArtist.artistUri success:^(NSArray *bios){
         if(bios.count != NULL){
-        
         self.vcArtist.bio = [bios objectAtIndex:0];
-        
-           
         }
         
     } failure:^(NSError *error) {
