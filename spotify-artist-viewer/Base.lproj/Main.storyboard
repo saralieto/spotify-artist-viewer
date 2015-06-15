@@ -106,6 +106,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Keb-fF-5gD">
                                 <rect key="frame" x="16" y="35" width="34" height="30"/>
                                 <state key="normal" title="back">
+                                    <color key="titleColor" red="0.29496022398415545" green="0.85669191919191923" blue="0.27845190100097689" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>

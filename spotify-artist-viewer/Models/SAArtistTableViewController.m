@@ -30,8 +30,7 @@
     self.artistArray = [NSMutableArray new];
     [self.searchBar setDelegate:self];
     [self.tableView reloadData];
-   // SARequestManager *manager = [SARequestManager sharedManager];
-
+   
 }
 
 - (void)didReceiveMemoryWarning {
