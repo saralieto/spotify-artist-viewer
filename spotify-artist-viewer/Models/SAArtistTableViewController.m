@@ -14,24 +14,23 @@
 
 
 @interface SAArtistTableViewController ()
-//@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+
 
 
 @end
 
 @implementation SAArtistTableViewController
-//connecting this view controller with the Artist object (importing SAArtist, too)
 @synthesize artistArray;
 @synthesize searchResults;
-@synthesize rowNum;
+
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.artistArray = [NSMutableArray new];
     [self.searchBar setDelegate:self];
     [self.tableView reloadData];
    
-
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,12 +41,16 @@
 #pragma mark - Text Change
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
+  
     SARequestManager *manager = [SARequestManager sharedManager];
     
-
     [manager getArtistWithQuery:searchText success:^(NSArray *artists)  {
-       [self.tableView reloadData];
-        self.artistArray = artists;
+        NSLog(@"success");
+        self.artistArray = [artists mutableCopy];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+        
         
      } failure:^(NSError *error) {
          NSLog(@"block failure");
@@ -59,19 +62,11 @@
 
 #pragma mark - Button cell pressing
 
-//- (IBAction)buttonPressed:(id)sender
-//{
-//
-//    [self performSegueWithIdentifier:@"NextScreen" sender:sender];
-//}
 
-//-(IBAction)did
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = [indexPath row];
-    rowNum = row;
-    NSLog(@"RowNum - %d", rowNum);
-    [self performSegueWithIdentifier:@"NextScreen" sender:nil];
+    [self performSegueWithIdentifier:@"NextScreen" sender:indexPath];
  
     
 }
@@ -79,21 +74,18 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([[segue identifier ] isEqualToString:@"NextScreen"]){
         UITableViewCell *selectedCell = (UITableViewCell *)sender;
-        
+     
         SAArtistViewController *svc = [segue destinationViewController];
         SAArtist *artistToBePassed = [[SAArtist alloc]init];
         
-        
-        artistToBePassed = [self.artistArray objectAtIndex:rowNum];
-        NSLog(@"ArtistName - %@", artistToBePassed.artistName);
-
+        artistToBePassed = [self.artistArray objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        NSString *aUri =[artistToBePassed artistUri];
+      
         [svc setVcArtist:artistToBePassed];
         
         
     }
-        //get SAArtist
-        // SAArtist *artistToPass;
-        // [stvc
+     
     
 }
 
@@ -115,7 +107,8 @@
 
                                   
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-   static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"Cell";
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if ( cell == nil ) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];

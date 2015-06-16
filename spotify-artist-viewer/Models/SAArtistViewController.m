@@ -8,11 +8,15 @@
 
 #import "SAArtistViewController.h"
 #import "SAArtist.h"
+#import "SARequestManager.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface SAArtistViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *artistImg;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+
+
 
 @end
 
@@ -26,28 +30,69 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     header.text = vcArtist.artistName;
+
     
     NSURL *imageURL = [NSURL URLWithString:vcArtist.imgURL];
     [self.artistImg sd_setImageWithURL:imageURL];
+    self.artistImg.layer.cornerRadius = self.artistImg.frame.size.height/2;
+    [self.artistImg.layer setMasksToBounds:YES];
+
+    UIButton *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButtonPressed:)];
+    self.navigationItem.backBarButtonItem = backButton;
+ 
     
-    // Do any additional setup after loading the view.
+    
+   // while(self.vcArtist.bio == nil){
+       // self.setBio;
+        //self.bio.text = self.vcArtist.bio;
+    //}
+    
+    SARequestManager *manager = [SARequestManager sharedManager];
+    [manager getBio:self.vcArtist.artistUri success:^(NSArray *bios){
+        if(bios.count != NULL){
+            self.vcArtist.bio = [bios objectAtIndex:0];
+            dispatch_async(dispatch_get_main_queue(), ^{
+               self.bio.text = self.vcArtist.bio;
+            });
+            
+        
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"block failure");
+    }];
+    self.bio.text = self.vcArtist.bio;
+  
+    NSLog(@"ArtistBio - %@", self.vcArtist.bio);
+    
+ 
 }
+
+-(void)setBio{
+SARequestManager *manager = [SARequestManager sharedManager];
+    [manager getBio:self.vcArtist.artistUri success:^(NSArray *bios){
+        if(bios.count != NULL){
+        self.vcArtist.bio = [bios objectAtIndex:0];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"block failure");
+    }];
+   // self.vcArtist.bio = [manager getBio:self.vcArtist.artistUri];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)doneButtonPressed:(id)sender
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-*/
+
+
 
 @end

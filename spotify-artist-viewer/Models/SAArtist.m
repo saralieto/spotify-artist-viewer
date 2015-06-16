@@ -12,15 +12,18 @@
 @synthesize artistUri;
 @synthesize artistName;
 @synthesize imgURL;
+@synthesize bio;
 
 
-+ (id)artistInformation:(NSString*)artistName artistID:(NSString*)ID {
-    SAArtist *artistInput  = [[self alloc]init];
-    artistInput.artistUri = ID;
-    artistInput.artistName = artistName;
-    
+-(instancetype)initWith:(NSString*)artistName artistUri:(NSString*)ID  artistImgURL:(NSString *)imgurl{
+    self = [super init];
+    if(self){
+        self.artistUri = artistUri;
+        self.artistName = artistName;
+        self.imgURL = imgurl;
+    }
 
-    return artistInput;
+    return self;
 }
 
 

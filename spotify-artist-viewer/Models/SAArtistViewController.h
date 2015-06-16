@@ -13,8 +13,13 @@
 @property (nonatomic)NSString *artistNameVC;
 @property (weak, nonatomic) IBOutlet UIImageView *img;
 @property (weak, nonatomic) IBOutlet UILabel *header;
-@property (weak, nonatomic) IBOutlet UILabel *bio;
+@property (weak, nonatomic) IBOutlet UITextView *bio;
+
 @property (nonatomic) SAArtist *vcArtist;
+
+-(void)setBio;
+
+
 
 //- (instancetype)initWithArtist:(SAArtist *)artist;
 
