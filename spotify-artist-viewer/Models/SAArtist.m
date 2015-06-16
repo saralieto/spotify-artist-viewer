@@ -15,7 +15,7 @@
 @synthesize bio;
 
 
--(instancetype)initWith:(NSString*)artistName artistUri:(NSString*)ID  artistImgURL:(NSString *)imgurl{
+- (instancetype) initWith:(NSString*)artistName artistUri:(NSString*)ID  artistImgURL:(NSString *)imgurl{
     self = [super init];
     if(self){
         self.artistUri = artistUri;

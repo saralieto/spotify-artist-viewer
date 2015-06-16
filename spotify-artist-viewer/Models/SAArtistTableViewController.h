@@ -10,9 +10,7 @@
 #import "SARequestManager.h"
 
 @interface SAArtistTableViewController : UITableViewController
-@property (strong, nonatomic) NSMutableArray *artistArray;
-@property (strong,nonatomic) NSMutableArray *searchResults;
-
+@property (strong, nonatomic) NSMutableArray *artists;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 

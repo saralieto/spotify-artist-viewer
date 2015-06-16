@@ -10,15 +10,14 @@
 #import "SAArtist.h"
 
 @implementation SARequestManager
-static SARequestManager *rm = nil;
 
-+ (instancetype) sharedManager{
-    
-    if(!rm){
-        rm = [[SARequestManager alloc] init];
-    }
-    
-    return rm;
++ (instancetype)sharedManager {
+    static dispatch_once_t onceToken;
+    static SARequestManager *sharedManager = nil;
+    dispatch_once(&onceToken, ^{
+        sharedManager = [SARequestManager new];
+    });
+    return sharedManager;
 }
 
 - (void) getArtistWithQuery:(NSString *) query success:(void (^)(NSArray *artists))success failure:(void(^)(NSError *error))failure{
@@ -48,44 +47,38 @@ static SARequestManager *rm = nil;
             NSDictionary *itemArray = [[NSDictionary alloc] init];
             itemArray = [result objectForKey:@"artists"];
             
-            
-            
             NSDictionary *artistArray = [[NSDictionary alloc] init];
             artistArray = [itemArray objectForKey:@"items"];
             
+
             
+              //NSDictionary *itemArray - dictionary of @"items" in itemArray
             for(itemArray in [itemArray valueForKey:@"items"]){
-                SAArtist *a = [[SAArtist alloc]init];
+                SAArtist *artist = [[SAArtist alloc]init];
                 
                 NSDictionary *imgArray = [[NSDictionary alloc] init];
                 imgArray = [itemArray objectForKey:@"images"];
                 NSArray *tempimgUrl = [imgArray valueForKey:@"url"];
                 
                 //making sure artist has images
-                
+              
                 if(tempimgUrl.count != NULL){
                     
-                    a.imgURL = [tempimgUrl objectAtIndex:0];
+                    artist.imgURL = [tempimgUrl objectAtIndex:0];
                 }
             
                 NSString *name = [itemArray valueForKey:@"name"];
-                a.artistName = name;
-                
+                artist.artistName = name;
                 NSString *uri = [itemArray valueForKey:@"uri"];
-                a.artistUri = uri;
-          
-                
-                [artists addObject:a];
-                
-                
+                artist.artistUri = uri;
+                [artists addObject:artist];
+
             }
-            
-            
-            //econest query http://developer.echonest.com/api/v4/artist/biographies?api_key=FILDTEOIK2HBORODV&id=spotify:artist:4Z8W4fKeB5YxbusRsdQVPb
-            
-            
+            if(success){
             success(artists);
-            
+            } else{
+                failure(nil);
+            }
             
         }
         

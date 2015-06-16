@@ -16,20 +16,19 @@
 @interface SAArtistTableViewController ()
 
 
-
+@property (strong, nonatomic) SARequestManager *manager;
 @end
 
 @implementation SAArtistTableViewController
-@synthesize artistArray;
-@synthesize searchResults;
+
 
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.artistArray = [NSMutableArray new];
+    self.artists = [NSMutableArray new];
     [self.searchBar setDelegate:self];
-    [self.tableView reloadData];
+    self.manager = [SARequestManager sharedManager];
    
 }
 
@@ -41,12 +40,10 @@
 #pragma mark - Text Change
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-  
-    SARequestManager *manager = [SARequestManager sharedManager];
-    
-    [manager getArtistWithQuery:searchText success:^(NSArray *artists)  {
-        NSLog(@"success");
-        self.artistArray = [artists mutableCopy];
+
+    [self.manager getArtistWithQuery:searchText success:^(NSArray *artists)  {
+      
+        self.artists = [artists mutableCopy];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
@@ -65,7 +62,7 @@
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSInteger row = [indexPath row];
+
     [self performSegueWithIdentifier:@"NextScreen" sender:indexPath];
  
     
@@ -73,17 +70,11 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if([[segue identifier ] isEqualToString:@"NextScreen"]){
-        UITableViewCell *selectedCell = (UITableViewCell *)sender;
-     
         SAArtistViewController *svc = [segue destinationViewController];
         SAArtist *artistToBePassed = [[SAArtist alloc]init];
-        
-        artistToBePassed = [self.artistArray objectAtIndex:self.tableView.indexPathForSelectedRow.row];
-        NSString *aUri =[artistToBePassed artistUri];
-      
+        artistToBePassed = [self.artists objectAtIndex:self.tableView.indexPathForSelectedRow.row];
         [svc setVcArtist:artistToBePassed];
-        
-        
+
     }
      
     
@@ -95,8 +86,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
-    // Return the number of rows in the section.
-    return [self.artistArray count];
+    return [self.artists count];
 }
 
 
@@ -114,7 +104,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    SAArtist *newArtist = [self.artistArray objectAtIndex:indexPath.row];
+    SAArtist *newArtist = [self.artists objectAtIndex:indexPath.row];
     cell.textLabel.text = newArtist.artistName;
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     return cell;

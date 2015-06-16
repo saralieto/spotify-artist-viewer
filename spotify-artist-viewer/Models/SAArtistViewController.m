@@ -15,24 +15,21 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *artistImg;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
-
-
+@property (weak, nonatomic) IBOutlet UILabel *header;
+@property (weak, nonatomic) IBOutlet UITextView *bio;
 
 @end
 
 @implementation SAArtistViewController
-@synthesize artistNameVC;
-@synthesize header;
-@synthesize bio;
-@synthesize img;
-@synthesize vcArtist;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    header.text = vcArtist.artistName;
+   
+    self.header.text = self.vcArtist.artistName;
 
-    
-    NSURL *imageURL = [NSURL URLWithString:vcArtist.imgURL];
+   
+    NSURL *imageURL = [NSURL URLWithString:self.vcArtist.imgURL];
     [self.artistImg sd_setImageWithURL:imageURL];
     self.artistImg.layer.cornerRadius = self.artistImg.frame.size.height/2;
     [self.artistImg.layer setMasksToBounds:YES];
@@ -40,13 +37,6 @@
     UIButton *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButtonPressed:)];
     self.navigationItem.backBarButtonItem = backButton;
  
-    
-    
-   // while(self.vcArtist.bio == nil){
-       // self.setBio;
-        //self.bio.text = self.vcArtist.bio;
-    //}
-    
     SARequestManager *manager = [SARequestManager sharedManager];
     [manager getBio:self.vcArtist.artistUri success:^(NSArray *bios){
         if(bios.count != NULL){
@@ -68,18 +58,6 @@
  
 }
 
--(void)setBio{
-SARequestManager *manager = [SARequestManager sharedManager];
-    [manager getBio:self.vcArtist.artistUri success:^(NSArray *bios){
-        if(bios.count != NULL){
-        self.vcArtist.bio = [bios objectAtIndex:0];
-        }
-        
-    } failure:^(NSError *error) {
-        NSLog(@"block failure");
-    }];
-   // self.vcArtist.bio = [manager getBio:self.vcArtist.artistUri];
-}
 
 
 - (void)didReceiveMemoryWarning {

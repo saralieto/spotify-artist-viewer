@@ -109,10 +109,9 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="artistImg" destination="l7R-aJ-ufX" id="HXO-Nr-gc0"/>
+                        <outlet property="artistImg" destination="l7R-aJ-ufX" id="Dda-Ev-BMy"/>
                         <outlet property="bio" destination="poQ-nn-ID9" id="czD-XM-yEO"/>
                         <outlet property="header" destination="BY1-uP-vtB" id="YeB-nS-g7h"/>
-                        <outlet property="img" destination="l7R-aJ-ufX" id="GeV-r0-sjX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cUy-Bm-MTw" userLabel="First Responder" sceneMemberID="firstResponder"/>
