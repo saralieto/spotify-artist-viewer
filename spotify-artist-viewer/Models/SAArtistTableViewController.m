@@ -22,7 +22,7 @@
 @implementation SAArtistTableViewController
 @synthesize artistArray;
 @synthesize searchResults;
-@synthesize rowNum;
+
 
 
 - (void)viewDidLoad {
@@ -66,8 +66,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSInteger row = [indexPath row];
-    rowNum = row;
-    NSLog(@"RowNum - %d", rowNum);
     [self performSegueWithIdentifier:@"NextScreen" sender:indexPath];
  
     
