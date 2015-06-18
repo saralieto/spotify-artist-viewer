@@ -10,7 +10,6 @@
 
 @interface SARequestManager : NSObject
 + (instancetype) sharedManager;
-
 - (void)getArtistWithQuery:(NSString *)query success:(void (^)(NSArray *artists))success failure:(void(^)(NSError *error))failure;
 - (void)getBio:(NSString *)uri success:(void (^)(NSArray *bios))success failure:(void(^)(NSError *error))failure;
 @end

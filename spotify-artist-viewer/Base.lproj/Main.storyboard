@@ -36,7 +36,7 @@
                                     <accessibilityTraits key="traits" none="YES" button="YES"/>
                                 </accessibility>
                                 <connections>
-                                    <segue destination="mfd-Gi-REt" kind="modal" identifier="NextScreen" id="xZ5-jq-2pt"/>
+                                    <segue destination="mfd-Gi-REt" kind="presentation" identifier="NextScreen" id="xZ5-jq-2pt"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -86,8 +86,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l7R-aJ-ufX">
                                 <rect key="frame" x="84" y="116" width="169" height="170"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="170" id="SjU-mE-FnX"/>
-                                    <constraint firstAttribute="width" constant="170" id="X0X-g5-E0r"/>
+                                    <constraint firstAttribute="height" constant="170" id="HiR-Lx-oJN"/>
+                                    <constraint firstAttribute="width" constant="169" id="k2q-bX-Wb6"/>
                                 </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="poQ-nn-ID9">
@@ -104,6 +104,9 @@
                             </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="l7R-aJ-ufX" secondAttribute="centerX" constant="-8.5" id="hxC-UK-OXg"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>

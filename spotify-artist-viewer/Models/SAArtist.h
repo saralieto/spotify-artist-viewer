@@ -17,9 +17,7 @@
 @property(nonatomic)NSString *bio;
 
 
-
-
-+ (id)artistInformation:(NSString*)artistName artistID:(NSString*)ID;
+- (instancetype) initWith:(NSString*)artistName artistUri:(NSString*)ID  artistImgURL:(NSString *)imgurl;
 
 
 

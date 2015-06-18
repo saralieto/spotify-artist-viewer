@@ -25,10 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
     self.header.text = self.vcArtist.artistName;
-
-   
     NSURL *imageURL = [NSURL URLWithString:self.vcArtist.imgURL];
     [self.artistImg sd_setImageWithURL:imageURL];
     self.artistImg.layer.cornerRadius = self.artistImg.frame.size.height/2;
@@ -39,20 +36,17 @@
  
     SARequestManager *manager = [SARequestManager sharedManager];
     [manager getBio:self.vcArtist.artistUri success:^(NSArray *bios){
-        if(bios.count != NULL){
+        if(bios.count != 0){
             self.vcArtist.bio = [bios objectAtIndex:0];
             dispatch_async(dispatch_get_main_queue(), ^{
                self.bio.text = self.vcArtist.bio;
             });
-            
-        
         }
         
     } failure:^(NSError *error) {
         NSLog(@"block failure");
     }];
     self.bio.text = self.vcArtist.bio;
-  
     NSLog(@"ArtistBio - %@", self.vcArtist.bio);
     
  

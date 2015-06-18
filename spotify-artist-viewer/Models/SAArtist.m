@@ -9,20 +9,13 @@
 
 @implementation SAArtist
 
-@synthesize artistUri;
-@synthesize artistName;
-@synthesize imgURL;
-@synthesize bio;
-
-
 - (instancetype) initWith:(NSString*)artistName artistUri:(NSString*)ID  artistImgURL:(NSString *)imgurl{
     self = [super init];
     if(self){
-        self.artistUri = artistUri;
+        self.artistUri = ID;
         self.artistName = artistName;
         self.imgURL = imgurl;
     }
-
     return self;
 }
 

@@ -13,5 +13,4 @@
 @property (strong, nonatomic) NSMutableArray *artists;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
-
 @end
