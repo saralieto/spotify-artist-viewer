@@ -8,46 +8,63 @@
 
 #import "SAArtistViewController.h"
 #import "SAArtist.h"
+#import "SARequestManager.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface SAArtistViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *artistImg;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UILabel *header;
+@property (weak, nonatomic) IBOutlet UITextView *bio;
 
 @end
 
 @implementation SAArtistViewController
-@synthesize artistNameVC;
-@synthesize header;
-@synthesize bio;
-@synthesize img;
-@synthesize vcArtist;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    header.text = vcArtist.artistName;
-    
-    NSURL *imageURL = [NSURL URLWithString:vcArtist.imgURL];
+    self.header.text = self.vcArtist.artistName;
+    NSURL *imageURL = [NSURL URLWithString:self.vcArtist.imgURL];
     [self.artistImg sd_setImageWithURL:imageURL];
+    self.artistImg.layer.cornerRadius = self.artistImg.frame.size.height/2;
+    [self.artistImg.layer setMasksToBounds:YES];
+
+    UIButton *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(doneButtonPressed:)];
+    self.navigationItem.backBarButtonItem = backButton;
+ 
+    SARequestManager *manager = [SARequestManager sharedManager];
+    [manager getBio:self.vcArtist.artistUri success:^(NSArray *bios){
+        if(bios.count != 0){
+            self.vcArtist.bio = [bios objectAtIndex:0];
+            dispatch_async(dispatch_get_main_queue(), ^{
+               self.bio.text = self.vcArtist.bio;
+            });
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"block failure");
+    }];
+    self.bio.text = self.vcArtist.bio;
+    NSLog(@"ArtistBio - %@", self.vcArtist.bio);
     
-    // Do any additional setup after loading the view.
+ 
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)doneButtonPressed:(id)sender
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
-*/
+
+
 
 @end
